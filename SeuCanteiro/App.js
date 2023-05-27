@@ -6,11 +6,13 @@ import TelaCadastro from './components/telaCadastro/TelaCadastro';
 import Menu from './components/menu/Menu';
 import SobreNos from './components/sobreNos/SobreNos';
 import Home from './components/home/Home';
+import TelaCadastroAlimento from './components/telaCadastroAlimento/TelaCadastroAlimento';
+import TelaCadastroSementes from './components/telaCadastroSementes/TelaCadastroSementes';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Home/>
+      <TelaCadastroSementes/>
       <StatusBar style="auto" />
     </View>
   );
