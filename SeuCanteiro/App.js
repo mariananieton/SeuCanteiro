@@ -8,11 +8,12 @@ import SobreNos from './components/sobreNos/SobreNos';
 import Home from './components/home/Home';
 import TelaCadastroAlimento from './components/telaCadastroAlimento/TelaCadastroAlimento';
 import TelaCadastroSementes from './components/telaCadastroSementes/TelaCadastroSementes';
+import Canteiro from './components/canteiro/Canteiro';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <TelaCadastroSementes/>
+      <Canteiro/>
       <StatusBar style="auto" />
     </View>
   );

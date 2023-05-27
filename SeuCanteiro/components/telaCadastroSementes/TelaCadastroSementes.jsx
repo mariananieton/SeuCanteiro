@@ -1,8 +1,30 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, FlatList } from "react-native";
 import Menu from "../menu/Menu";
 
 const TelaCadastroSementes = () => {
+  const data = [
+    { id: 1, name: "Brócolis", image: require('../telaCadastroSementes/img/brocolis.png') },
+    { id: 2, name: "Alface", image: require('../telaCadastroSementes/img/alface.png') },
+    { id: 3, name: "Cebola", image: require('../telaCadastroSementes/img/cebola.png') },
+    { id: 4, name: "Batata", image: require('../telaCadastroSementes/img/batata.png') },
+    { id: 5, name: "Tomate", image: require('../telaCadastroSementes/img/tomate.png') },
+    { id: 6, name: "Cenoura", image: require('../telaCadastroSementes/img/cenoura.png') },
+    { id: 7, name: "Coentro", image: require('../telaCadastroSementes/img/coentro.png') },
+    { id: 8, name: "Feijão", image: require('../telaCadastroSementes/img/feijao.png') },
+    { id: 9, name: "Mandioca", image: require('../telaCadastroSementes/img/mandioquinha.png') },
+    { id: 10, name: "Pimentão", image: require('../telaCadastroSementes/img/pimentao.png') },
+    { id: 11, name: "Rabanete", image: require('../telaCadastroSementes/img/rabanete.png') },
+    { id: 12, name: "Berinjela", image: require('../telaCadastroSementes/img/beringela.png') },
+  ];
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
+      <Text style={styles.texto}>{item.name}</Text>
+      <Image source={item.image} style={styles.imageItem} />
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../telaCadastroSementes/img/canteiro.png')} style={styles.backgroundImage}>
@@ -11,60 +33,13 @@ const TelaCadastroSementes = () => {
             <Image source={require('../telaCadastroSementes/img/wifinoura.png')} style={styles.image} />
             <Text style={styles.title}>Cadastro de Sementes</Text>
           </View>
-          <View style={styles.content}>
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Brócolis</Text>
-                    <Image source={require('../telaCadastroSementes/img/brocolis.png')} style={styles.imageItem} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Alface</Text> 
-                    <Image source={require('../telaCadastroSementes/img/alface.png')} style={styles.imageItem} /> 
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Cebola</Text>
-                    <Image source={require('../telaCadastroSementes/img/cebola.png')} style={styles.imageItem} /> 
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableOpacity}  onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Batata</Text>
-                    <Image source={require('../telaCadastroSementes/img/batata.png')} style={styles.imageItem} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.content}>
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Tomate</Text>
-                    <Image source={require('../telaCadastroSementes/img/tomate.png')} style={styles.imageItem} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Cenoura</Text> 
-                    <Image source={require('../telaCadastroSementes/img/cenoura.png')} style={styles.imageItem} /> 
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Coentro</Text>
-                    <Image source={require('../telaCadastroSementes/img/coentro.png')} style={styles.imageItem} /> 
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableOpacity}  onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Feijão</Text>
-                    <Image source={require('../telaCadastroSementes/img/feijao.png')} style={styles.imageItem} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.content}>
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Mandioca</Text>
-                    <Image source={require('../telaCadastroSementes/img/mandioquinha.png')} style={styles.imageItem} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Pimentão</Text> 
-                    <Image source={require('../telaCadastroSementes/img/pimentao.png')} style={styles.imageItem} /> 
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Rabanete</Text>
-                    <Image source={require('../telaCadastroSementes/img/rabanete.png')} style={styles.imageItem} /> 
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableOpacity}  onPress={() => console.log('Menu')}>
-                    <Text style={styles.texto}>Berinjela</Text>
-                    <Image source={require('../telaCadastroSementes/img/beringela.png')} style={styles.imageItem} />
-                </TouchableOpacity>
-          </View>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={3}
+            contentContainerStyle={styles.listContentContainer}
+          />
         </View>
         <Menu/>
       </ImageBackground>
@@ -92,7 +67,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'left',
-    marginTop: 200,
+    marginTop: 250,
+    marginBottom: 30,
   },
   image: {
     width: 70,
@@ -116,13 +92,15 @@ const styles = StyleSheet.create({
     color: '#7E3207',
     textAlign: 'center',
   },
-  content: {
-    flexDirection: 'row',
-    marginTop: 30,
+  listContentContainer: {
+    alignItems: 'center',
+    paddingBottom: 10,
   },
   touchableOpacity : {
     alignItems:'center',
     justifyContent:'center',
+    marginRight: 20,
+    marginBottom: 10,
   },
 });
 
