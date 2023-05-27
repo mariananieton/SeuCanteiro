@@ -5,11 +5,12 @@ import TelaLogin from './components/TelaLogin/TelaLogin';
 import TelaCadastro from './components/telaCadastro/TelaCadastro';
 import Menu from './components/menu/Menu';
 import SobreNos from './components/sobreNos/SobreNos';
+import Home from './components/home/Home';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <SobreNos/>
+      <Home/>
       <StatusBar style="auto" />
     </View>
   );
