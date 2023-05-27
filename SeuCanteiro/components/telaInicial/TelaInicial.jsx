@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
 
 const TelaInicial = () => {
   return (
@@ -23,8 +23,6 @@ const TelaInicial = () => {
   );
 };
 
-const { width, height } = Dimensions.get("window");
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -32,8 +30,8 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
-    width: width,
-    height: height,
+    width: 430,
+    height: 932,
   },
   contentContainer: {
     flex: 1,

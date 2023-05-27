@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput } from "react-native";
 
 const TelaLogin = () => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../loginScreen/img/login_cadastro.png')} style={styles.backgroundImage}>
+      <ImageBackground source={require('../telaLogin/img/login_cadastro.png')} style={styles.backgroundImage}>
         <View style={styles.contentContainer}>
           <Text style={styles.title}>Login</Text>
           <View>
@@ -37,8 +37,6 @@ const TelaLogin = () => {
   );
 };
 
-const { width, height } = Dimensions.get("window");
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -46,8 +44,8 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
-    width: width,
-    height: height,
+    width: 430,
+    height: 932,
   },
   contentContainer: {
     flex: 1,
