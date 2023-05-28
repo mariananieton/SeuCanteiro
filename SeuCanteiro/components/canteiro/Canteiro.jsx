@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground, Image, FlatList, TouchableOpacity } from "react-native";
 import Menu from "../menu/Menu";
 
-const Canteiro = () => {
+const Canteiro = ({navigation}) => {
   const data = [
     { id: 1, name: "Brócolis", image: require('../canteiro/img/brocolis.png') },
     { id: 2, name: "Alface", image: require('../canteiro/img/alface.png') },
@@ -32,7 +32,7 @@ const Canteiro = () => {
       <ImageBackground source={require('../canteiro/img/superior.png')} style={styles.backgroundImage}>
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Itens do Canteiro</Text>
+            <Text style={styles.title}>Meu Canteiro</Text>
           </View>
           <FlatList
             data={data}
@@ -42,7 +42,7 @@ const Canteiro = () => {
             contentContainerStyle={styles.listContentContainer}
           />
         </View>
-        <Menu/>
+        <Menu navigation={navigation}/>
       </ImageBackground>
     </View>
   );
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#E5E5E5',
     paddingBottom: 10,
     marginBottom: 10,
+    width: 430,
   },
   imageItem: {
     width: 100,

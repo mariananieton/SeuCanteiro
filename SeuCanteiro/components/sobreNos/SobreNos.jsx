@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground, Image } from "react-native";
 import Menu from "../menu/Menu";
 
-const SobreNos = () => {
+const SobreNos = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../sobreNos/img/superior.png')} style={styles.backgroundImage}>
@@ -18,7 +18,7 @@ const SobreNos = () => {
           </View>
             <Text style={styles.textContent}>Nossa missão vai além de fornecer as informações necessárias para o cultivo de alimentos em casa. Estamos comprometidos em tocar a alma das pessoas e despertar a consciência coletiva sobre a fome e suas causas subjacentes. Queremos inspirar uma revolução silenciosa em cada lar, onde a comida seja cultivada com amor e apreciada em sua forma mais pura.</Text>
         </View>
-        <Menu/>
+        <Menu navigation={navigation}/>
       </ImageBackground>
     </View>
   );

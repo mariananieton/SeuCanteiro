@@ -2,7 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, FlatList } from "react-native";
 import Menu from "../menu/Menu";
 
-const TelaCadastroSementes = () => {
+const TelaCadastroSementes = ({navigation}) => {
+
   const data = [
     { id: 1, name: "Brócolis", image: require('../telaCadastroSementes/img/brocolis.png') },
     { id: 2, name: "Alface", image: require('../telaCadastroSementes/img/alface.png') },
@@ -19,7 +20,7 @@ const TelaCadastroSementes = () => {
   ];
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
+    <TouchableOpacity style={styles.touchableOpacity} onPress={() => navigation.navigate('TelaCadastroAlimento', { nomePlanta: item.name })}>
       <Text style={styles.texto}>{item.name}</Text>
       <Image source={item.image} style={styles.imageItem} />
     </TouchableOpacity>
@@ -41,7 +42,7 @@ const TelaCadastroSementes = () => {
             contentContainerStyle={styles.listContentContainer}
           />
         </View>
-        <Menu/>
+        <Menu navigation={navigation}/>
       </ImageBackground>
     </View>
   );

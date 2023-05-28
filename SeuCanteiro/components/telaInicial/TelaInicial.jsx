@@ -1,18 +1,18 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
 
-const TelaInicial = () => {
+const TelaInicial = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../telaInicial/img/tela_inicial.png')} style={styles.backgroundImage}>
         <View style={styles.contentContainer}>
           <View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TelaLogin')}>
                 <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Cadastro</Text>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TelaCadastro')}>
+                <Text style={styles.buttonText }>Cadastro</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -2,20 +2,23 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput } from "react-native";
 import Menu from "../menu/Menu";
 
-const TelaCadastroAlimento = () => {
+const TelaCadastroAlimento = ({ route, navigation }) => {
+
+  const { nomePlanta } = route.params;
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../telaCadastroAlimento/img/superior.png')} style={styles.backgroundImage}>
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Cadastro de Alimento</Text>
+            <Text style={styles.title}>{nomePlanta}</Text>
           </View>
           <View>
             <View style={styles.label}>
               <Text style={styles.textInput}>Nome da planta</Text>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="Digite o nome da planta" />
+              <TextInput style={styles.input} value={nomePlanta} />
             </View>
             <View style={styles.label}>
               <Text style={styles.textInput}>Nome científico</Text>
@@ -49,12 +52,12 @@ const TelaCadastroAlimento = () => {
             </View>
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Salvar</Text>
+                <Text style={styles.buttonText} onPress={() => navigation.navigate("TelaCadastroSementes")}>Salvar</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
-        <Menu/>
+        <Menu navigation={navigation}/>
       </ImageBackground>
     </View>
   );

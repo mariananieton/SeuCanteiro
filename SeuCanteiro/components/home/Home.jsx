@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground, Image,TouchableOpacity } from "react-native";
 import Menu from "../menu/Menu";
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../home/img/home.png')} style={styles.backgroundImage}>
@@ -16,12 +16,12 @@ const Home = () => {
                 <Text style={styles.textContent}>comece a mudar o mundo</Text>
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TelaCadastroSementes')}>
                 <Text style={styles.buttonText}>VAMOS PLANTAR</Text>
               </TouchableOpacity>
             </View>
         </View>
-        <Menu/>
+        <Menu navigation={navigation}/>
       </ImageBackground>
     </View>
   );

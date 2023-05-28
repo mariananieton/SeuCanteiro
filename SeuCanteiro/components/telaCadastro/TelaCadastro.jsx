@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput } from "react-native";
 
-const TelaCadastro = () => {
+const TelaCadastro = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../telaCadastro/img/login_cadastro.png')} style={styles.backgroundImage}>
@@ -53,7 +53,7 @@ const TelaCadastro = () => {
               <TextInput style={styles.input} placeholder="Digite a senha novamente" />
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TelaLogin')}>
                 <Text style={styles.buttonText}>Salvar</Text>
               </TouchableOpacity>
             </View>

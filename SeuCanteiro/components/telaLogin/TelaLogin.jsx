@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput } from "react-native";
 
-const TelaLogin = () => {
+const TelaLogin = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../telaLogin/img/login_cadastro.png')} style={styles.backgroundImage}>
@@ -26,7 +26,7 @@ const TelaLogin = () => {
               </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
                 <Text style={styles.buttonText}>Entrar</Text>
               </TouchableOpacity>
             </View>
