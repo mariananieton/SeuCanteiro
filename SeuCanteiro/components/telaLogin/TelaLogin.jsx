@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingHorizontal: 10,
     textAlign: 'left',
-    placeholderTextColor: '#ccc',
   },
   forgotPasswordLink: {
     marginBottom: 10,

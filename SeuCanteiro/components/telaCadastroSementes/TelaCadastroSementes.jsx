@@ -67,9 +67,10 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'left',
+    justifyContent: 'center',
     marginTop: 250,
     marginBottom: 30,
+    marginRight: 60,
   },
   image: {
     width: 70,

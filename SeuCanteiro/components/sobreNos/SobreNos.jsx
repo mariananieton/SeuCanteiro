@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'left',
     marginTop: 20,
   },
   image: {
@@ -60,10 +59,10 @@ const styles = StyleSheet.create({
     color: '#9D9494',
   },
   textContent: {
-    fontSize: 16, 
+    fontSize: 15, 
     color: '#544F4F',
     textAlign: 'justify',
-    marginRight: 5,
+    marginRight: 15,
   },
 });
 

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    marginBottom: 100,
+    marginBottom: 50,
     justifyContent: "center",
     paddingHorizontal: 20,
     backgroundColor: "rgba(255, 255, 255)",
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 170,
-    height: 35,
+    height: 40,
     backgroundColor: "#A2FF82",
     paddingVertical: 10,
     paddingHorizontal: 20,

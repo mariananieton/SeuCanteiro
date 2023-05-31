@@ -1,10 +1,38 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Alert } from "react-native";
 import Menu from "../menu/Menu";
 
 const TelaCadastroAlimento = ({ route, navigation }) => {
-
   const { nomePlanta } = route.params;
+
+  const [nomeCientifico, setNomeCientifico] = useState("");
+  const [frequenciaIrrigacao, setFrequenciaIrrigacao] = useState("");
+  const [apelidoPlanta, setApelidoPlanta] = useState("");
+  const [quantidadePlantas, setQuantidadePlantas] = useState("");
+  const [dataPlantio, setDataPlantio] = useState("");
+  const [dataColheita, setDataColheita] = useState("");
+
+  const handleSalvar = () => {
+    if (!nomePlanta || !quantidadePlantas || !dataPlantio || !frequenciaIrrigacao) {
+      Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
+    } else if (nomePlanta.length < 3) {
+      Alert.alert("Erro", "O nome da planta deve ter pelo menos 3 caracteres.");
+    } else if (apelidoPlanta && apelidoPlanta.length < 3) {
+      Alert.alert("Erro", "O apelido da planta deve ter pelo menos 3 caracteres se for preenchido.");
+    } else if (isNaN(quantidadePlantas) || quantidadePlantas <= 0) {
+      Alert.alert("Erro", "A quantidade de plantas deve ser um número maior que zero.");
+    } else if (!validarData(dataPlantio)) {
+      Alert.alert("Erro", "A data de plantio deve estar no formato yyyy-MM-dd.");
+    } else if (dataColheita && !validarData(dataColheita)) {
+      Alert.alert("Erro", "A data de colheita deve estar no formato yyyy-MM-dd.");
+    } else {
+      navigation.navigate("TelaCadastroSementes");
+    }
+  };
+
+  const validarData = (data) => {
+    return /^\d{4}-\d{2}-\d{2}$/.test(data);
+  };
 
   return (
     <View style={styles.container}>
@@ -18,46 +46,52 @@ const TelaCadastroAlimento = ({ route, navigation }) => {
               <Text style={styles.textInput}>Nome da planta</Text>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} value={nomePlanta} />
+              <TextInput style={styles.input} value={nomePlanta} editable={false} />
             </View>
             <View style={styles.label}>
-              <Text style={styles.textInput}>Nome científico</Text>
+              <Text style={styles.textInput}>Nome científico (Opcional)</Text>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="Digite o nome científico da planta" />
+              <TextInput style={styles.input} value={nomeCientifico} onChangeText={setNomeCientifico} placeholder="Digite o nome científico da planta" />
             </View>
             <View style={styles.label}>
               <Text style={styles.textInput}>Frequência de irrigação</Text>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="Digite a frequência de irrigação" />
+              <TextInput style={styles.input} value={frequenciaIrrigacao} onChangeText={setFrequenciaIrrigacao} placeholder="Digite a frequência de irrigação" />
             </View>
             <View style={styles.label}>
-              <Text style={styles.textInput}>Apelido da planta</Text>
+              <Text style={styles.textInput}>Apelido da planta (Opcional)</Text>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="Digite o apelido da planta" />
+              <TextInput style={styles.input} value={apelidoPlanta} onChangeText={setApelidoPlanta} placeholder="Digite o apelido da planta" />
             </View>
             <View style={styles.label}>
               <Text style={styles.textInput}>Quantidade</Text>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="Digite a quantidade de plantas" />
+              <TextInput style={styles.input} value={quantidadePlantas} onChangeText={setQuantidadePlantas} placeholder="Digite a quantidade de plantas" keyboardType="numeric" />
             </View>
             <View style={styles.label}>
               <Text style={styles.textInput}>Data da plantação</Text>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="25/05/2023" />
+              <TextInput style={styles.input} value={dataPlantio} onChangeText={setDataPlantio} placeholder="Exemplo: 2023-05-25" />
+            </View>
+            <View style={styles.label}>
+              <Text style={styles.textInput}>Data da colheita (Opcional)</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput style={styles.input} value={dataColheita} onChangeText={setDataColheita} placeholder="Exemplo: 2023-05-25" />
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText} onPress={() => navigation.navigate("TelaCadastroSementes")}>Salvar</Text>
+              <TouchableOpacity style={styles.button} onPress={handleSalvar}>
+                <Text style={styles.buttonText}>Salvar</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
-        <Menu navigation={navigation}/>
+        <Menu navigation={navigation} />
       </ImageBackground>
     </View>
   );
@@ -88,12 +122,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
-    marginTop: 50,
+    marginTop: 10,
     alignItems: 'center',
   },
   inputContainer: {
     width: '100%',
-    marginBottom: 10,
+    marginBottom: 5,
     alignItems: 'center',
   },
   input: {
@@ -105,7 +139,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingHorizontal: 10,
     textAlign: 'left',
-    placeholderTextColor: '#ccc',
   },
   button: {
     width:170,
@@ -131,7 +164,6 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     marginTop: 40,
-    marginBottom: 50,
   },
   textInput: {
     color:'#6C6B6B',
