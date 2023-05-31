@@ -8,7 +8,9 @@ const TelaCadastro = ({ navigation }) => {
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [repetirSenha, setRepetirSenha] = useState("");
+  const [repetirSenha, setRepetirSenha] = useState("")
+
+
 
   const handleSalvar = () => {
     if (!nome || !cpf || !dataNascimento || !telefone || !email || !senha || !repetirSenha) {
@@ -36,9 +38,44 @@ const TelaCadastro = ({ navigation }) => {
       console.log("Erro: As senhas digitadas não coincidem.");
       Alert.alert("Erro", "As senhas digitadas não coincidem.");
     } else {
-      console.log("Navegando para a tela de login");
-      navigation.navigate('TelaLogin', { email });
-    }
+
+      const usuario = {
+        nome,
+        cpf,
+        dataNascimento,
+        telefone,
+      };
+  
+      // Criar o objeto login com as informações de login
+      const login = {
+        email,
+        senha,
+      };
+
+
+       // Fazer a solicitação POST para o servidor com os objetos separados
+    fetch('http://localhost:8080/api/v1/usuario', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ usuario, login }),
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+      // Processar a resposta do servidor, se necessário
+      console.log(responseJson);
+      // Navegar para outra tela, se necessário
+      navigation.navigate('TelaLogin',{email});
+    })
+    .catch(error => {
+      // Lidar com erros de solicitação, se houver algum
+      console.error(error);
+    });
+  };
+  
+
+    
   };
   
   const validarEmail = (email) => {
