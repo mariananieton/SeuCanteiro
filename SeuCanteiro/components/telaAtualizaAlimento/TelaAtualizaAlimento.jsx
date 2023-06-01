@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Alert } from "react-native";
 import Menu from "../menu/Menu";
 
-const TelaCadastroAlimento = ({ route, navigation }) => {
+const TelaAtualizaAlimento = ({ route, navigation }) => {
   const { nomePlanta } = route.params;
 
   const [nomeCientifico, setNomeCientifico] = useState("");
@@ -12,7 +12,7 @@ const TelaCadastroAlimento = ({ route, navigation }) => {
   const [dataPlantio, setDataPlantio] = useState("");
   const [dataColheita, setDataColheita] = useState("");
 
-  const handleSalvar = () => {
+  const handleAtualizar = () => {
     if (!nomePlanta || !quantidadePlantada || !dataPlantio || !regacao) {
       Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
     } else if (nomePlanta.length < 3) {
@@ -75,44 +75,44 @@ const TelaCadastroAlimento = ({ route, navigation }) => {
               <TextInput style={styles.input} value={nomePlanta} editable={false} />
             </View>
             <View style={styles.label}>
-              <Text style={styles.textInput}>Nome científico (Opcional)</Text>
+              <Text style={styles.textInput}>Atualizar nome científico (Opcional)</Text>
             </View>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={nomeCientifico} onChangeText={setNomeCientifico} placeholder="Digite o nome científico da planta" />
             </View>
             <View style={styles.label}>
-              <Text style={styles.textInput}>Frequência de irrigação</Text>
+              <Text style={styles.textInput}>Atualizar frequência de irrigação</Text>
             </View>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={regacao} onChangeText={setRegacao} placeholder="Digite a frequência de irrigação" />
             </View>
             <View style={styles.label}>
-              <Text style={styles.textInput}>Apelido da planta (Opcional)</Text>
+              <Text style={styles.textInput}> Atualizar apelido da planta (Opcional)</Text>
             </View>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={apelido} onChangeText={setApelido} placeholder="Digite o apelido da planta" />
             </View>
             <View style={styles.label}>
-              <Text style={styles.textInput}>Quantidade</Text>
+              <Text style={styles.textInput}>Atualizar quantidade</Text>
             </View>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={quantidadePlantada} onChangeText={setQuantidadePlantada} placeholder="Digite a quantidade de plantas" keyboardType="numeric" />
             </View>
             <View style={styles.label}>
-              <Text style={styles.textInput}>Data da plantação</Text>
+              <Text style={styles.textInput}>Atualizar data da plantação</Text>
             </View>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={dataPlantio} onChangeText={setDataPlantio} placeholder="Exemplo: 2023-05-25" />
             </View>
             <View style={styles.label}>
-              <Text style={styles.textInput}>Data da colheita (Opcional)</Text>
+              <Text style={styles.textInput}>Atualizar data da colheita (Opcional)</Text>
             </View>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={dataColheita} onChangeText={setDataColheita} placeholder="Exemplo: 2023-05-25" />
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={handleSalvar}>
-                <Text style={styles.buttonText}>Salvar</Text>
+              <TouchableOpacity style={styles.button} onPress={handleAtualizar}>
+                <Text style={styles.buttonText}>Atualizar</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -199,4 +199,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TelaCadastroAlimento;
+export default TelaAtualizaAlimento;

@@ -1,25 +1,19 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Alert } from "react-native";
 
-const TelaCadastro = ({ navigation }) => {
+const TelaAtualizaCadastro = ({ navigation }) => {
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [repetirSenha, setRepetirSenha] = useState("")
 
-  const handleSalvar = () => {
-    if (!nome || !cpf || !dataNascimento || !telefone || !email || !senha || !repetirSenha) {
+  const handleAtualizar = () => {
+    if (!nome || !cpf || !dataNascimento || !telefone) {
       console.log("Por favor, preencha todos os campos.");
       Alert.alert("Erro", "Por favor, preencha todos os campos.");
     } else if (nome.length < 3) {
       console.log("Erro: O nome precisa ter pelo menos 3 caracteres.");
       Alert.alert("Erro", "O nome precisa ter pelo menos 3 caracteres.");
-    } else if (!validarEmail(email)) {
-      console.log("Erro: Digite um e-mail válido.");
-      Alert.alert("Erro", "Digite um e-mail válido.");
     } else if (!validarDataNascimento(dataNascimento)) {
       console.log("Erro: Data de nascimento inválida. Utilize o formato yyyy-MM-dd.");
       Alert.alert("Erro", "Data de nascimento inválida. Utilize o formato yyyy-MM-dd.");
@@ -29,46 +23,9 @@ const TelaCadastro = ({ navigation }) => {
     } else if (!validarTelefone(telefone)) {
       console.log("Erro: Telefone inválido. Deve ter 9 dígitos.");
       Alert.alert("Erro", "Telefone inválido. Deve ter 9 dígitos.");
-    } else if (senha.length < 8 || senha.length > 16) {
-      console.log("Erro: A senha precisa ter entre 8 e 16 caracteres.");
-      Alert.alert("Erro", "A senha precisa ter entre 8 e 16 caracteres.");
-    } else if (senha !== repetirSenha) {
-      console.log("Erro: As senhas digitadas não coincidem.");
-      Alert.alert("Erro", "As senhas digitadas não coincidem.");
     } else {
-
-      const usuario = {
-        nome,
-        cpf,
-        dataNascimento,
-        telefone,
-      };
-  
-      const login = {
-        email,
-        senha,
-      };
-
-    fetch('http://IP:8080/api/v1/usuario', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ usuario, login }),
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.log(responseJson);
-      navigation.navigate('TelaLogin');
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  };   
-  };
-  
-  const validarEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@.]+$/.test(email);
+        navigation.navigate('Perfil');
+    }
   };
   
   const validarDataNascimento = (data) => {
@@ -89,7 +46,7 @@ const TelaCadastro = ({ navigation }) => {
       <ImageBackground source={require('../telaCadastro/img/login_cadastro.png')} style={styles.backgroundImage}>
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Cadastro</Text>
+            <Text style={styles.title}>Atualizar Dados Cadastrais</Text>
           </View>
           <View>
             <View style={styles.label}>
@@ -136,44 +93,9 @@ const TelaCadastro = ({ navigation }) => {
                 onChangeText={setTelefone}
               />
             </View>
-            <View style={styles.label}>
-              <Text style={styles.textInput}>E-mail</Text>
-            </View>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Digite seu e-mail"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
-            <View style={styles.label}>
-              <Text style={styles.textInput}>Senha</Text>
-            </View>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Digite sua senha"
-                value={senha}
-                onChangeText={setSenha}
-                secureTextEntry
-              />
-            </View>
-            <View style={styles.label}>
-              <Text style={styles.textInput}>Repita a senha</Text>
-            </View>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Digite a senha novamente"
-                value={repetirSenha}
-                onChangeText={setRepetirSenha}
-                secureTextEntry
-              />
-            </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={handleSalvar}>
-                <Text style={styles.buttonText}>Salvar</Text>
+              <TouchableOpacity style={styles.button} onPress={handleAtualizar}>
+                <Text style={styles.buttonText}>Atualizar</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -259,4 +181,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TelaCadastro;
+export default TelaAtualizaCadastro;

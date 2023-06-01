@@ -12,7 +12,7 @@ const Menu = ({navigation}) => {
         <Text style={styles.texto}>SOBRE NÓS</Text>
         <Image source={require('../menu/img/equipe.png')} style={styles.image} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
+      <TouchableOpacity style={styles.touchableOpacity} onPress={() => navigation.navigate('Perfil')}>
         <Text style={styles.texto}>CHAT</Text>
         <Image source={require('../menu/img/balao.png')} style={styles.image} />
       </TouchableOpacity>

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground, Image, FlatList, TouchableOpacity } from "react-native";
 import Menu from "../menu/Menu";
 
-const Canteiro = ({navigation}) => {
+const Canteiro = ({ navigation }) => {
   const data = [
     { id: 1, name: "Brócolis", image: require('../canteiro/img/brocolis.png') },
     { id: 2, name: "Alface", image: require('../canteiro/img/alface.png') },
@@ -19,7 +19,7 @@ const Canteiro = ({navigation}) => {
   ];
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Menu')}>
+    <TouchableOpacity style={styles.touchableOpacity} onPress={() => navigation.navigate("TelaAtualizaAlimento", { nomePlanta: item.name })}>
       <View style={styles.itemContainer}>
         <Image source={item.image} style={styles.imageItem} />
         <Text style={styles.texto}>{item.name}</Text>

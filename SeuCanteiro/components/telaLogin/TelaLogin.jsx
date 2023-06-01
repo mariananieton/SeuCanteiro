@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput } from "react-native";
 
-const TelaLogin = ({navigation}) => {
+const TelaLogin = ({ navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../telaLogin/img/login_cadastro.png')} style={styles.backgroundImage}>

@@ -1,18 +1,21 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
 
-const TelaInicial = ({navigation}) => {
+const Perfil = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../telaInicial/img/tela_inicial.png')} style={styles.backgroundImage}>
+      <ImageBackground source={require('../perfil/img/login_cadastro.png')} style={styles.backgroundImage}>
         <View style={styles.contentContainer}>
+        <View style={styles.titleContainer}>
+            <Text style={styles.title}>Meu Perfil</Text>
+          </View>
           <View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TelaLogin')}>
-                <Text style={styles.buttonText}>Login</Text>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TelaAtualizaCadastro')}>
+                <Text style={styles.buttonText}>Atualizar meus dados cadastrais</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TelaCadastro')}>
-                <Text style={styles.buttonText }>Cadastro</Text>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TelaAtualizaLogin')}>
+                <Text style={styles.buttonText }>Atualizar meus dados de login</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    width: 170,
+    width: 250,
     height: 40,
     backgroundColor: "#A2FF82",
     paddingVertical: 10,
@@ -65,6 +68,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
   },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginTop: 20,
+    color: '#9D9494',
+    textAlign: 'center',
+  },
+  titleContainer: {
+    marginBottom: 20,
+  },
 });
 
-export default TelaInicial;
+export default Perfil;

@@ -10,6 +10,10 @@ import TelaCadastro from "./components/telaCadastro/TelaCadastro"
 import Home from "./components/home/Home";
 import SobreNos from "./components/sobreNos/SobreNos"
 import Canteiro from "./components/canteiro/Canteiro";
+import TelaAtualizaAlimento from "./components/telaAtualizaAlimento/TelaAtualizaAlimento"
+import Perfil from "./components/perfil/Perfil";
+import TelaAtualizaCadastro from "./components/telaAtualizaCadastro/TelaAtualizaCadastro"
+import TelaAtualizaLogin from "./components/telaAtualizaLogin/TelaAtualizaLogin"
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +59,26 @@ const App = () => {
         <Stack.Screen
           name="Canteiro"
           component={Canteiro}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TelaAtualizaAlimento"
+          component={TelaAtualizaAlimento}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Perfil"
+          component={Perfil}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TelaAtualizaCadastro"
+          component={TelaAtualizaCadastro}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TelaAtualizaLogin"
+          component={TelaAtualizaLogin}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
