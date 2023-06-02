@@ -14,9 +14,9 @@ const TelaCadastro = ({ navigation }) => {
     if (!nome || !cpf || !dataNascimento || !telefone || !email || !senha || !repetirSenha) {
       console.log("Por favor, preencha todos os campos.");
       Alert.alert("Erro", "Por favor, preencha todos os campos.");
-    } else if (nome.length < 3) {
-      console.log("Erro: O nome precisa ter pelo menos 3 caracteres.");
-      Alert.alert("Erro", "O nome precisa ter pelo menos 3 caracteres.");
+    } else if (nome.length < 3 || nome.length > 50 ) {
+      console.log("Erro: O nome precisa ter entre 3 e 50 caracteres.");
+      Alert.alert("Erro", "O nome precisa ter entre 3 e 50 caracteres.");
     } else if (!validarEmail(email)) {
       console.log("Erro: Digite um e-mail válido.");
       Alert.alert("Erro", "Digite um e-mail válido.");

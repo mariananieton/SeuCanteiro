@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
+import Menu from "../menu/Menu";
 
 const Perfil = ({navigation}) => {
   return (
@@ -20,6 +21,7 @@ const Perfil = ({navigation}) => {
             </View>
           </View>
         </View>
+        <Menu navigation={navigation}/>
       </ImageBackground>
     </View>
   );

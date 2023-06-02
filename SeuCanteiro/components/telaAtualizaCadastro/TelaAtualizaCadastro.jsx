@@ -11,9 +11,9 @@ const TelaAtualizaCadastro = ({ navigation }) => {
     if (!nome || !cpf || !dataNascimento || !telefone) {
       console.log("Por favor, preencha todos os campos.");
       Alert.alert("Erro", "Por favor, preencha todos os campos.");
-    } else if (nome.length < 3) {
-      console.log("Erro: O nome precisa ter pelo menos 3 caracteres.");
-      Alert.alert("Erro", "O nome precisa ter pelo menos 3 caracteres.");
+    } else if (nome.length < 3 || nome.length > 50 ) {
+      console.log("Erro: O nome precisa ter entre 3 e 50 caracteres.");
+      Alert.alert("Erro", "O nome precisa ter entre 3 e 50 caracteres.");
     } else if (!validarDataNascimento(dataNascimento)) {
       console.log("Erro: Data de nascimento inválida. Utilize o formato yyyy-MM-dd.");
       Alert.alert("Erro", "Data de nascimento inválida. Utilize o formato yyyy-MM-dd.");

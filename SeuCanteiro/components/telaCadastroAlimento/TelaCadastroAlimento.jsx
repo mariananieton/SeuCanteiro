@@ -15,8 +15,8 @@ const TelaCadastroAlimento = ({ route, navigation }) => {
   const handleSalvar = () => {
     if (!nomePlanta || !quantidadePlantada || !dataPlantio || !regacao) {
       Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
-    } else if (nomePlanta.length < 3) {
-      Alert.alert("Erro", "O nome da planta deve ter pelo menos 3 caracteres.");
+    } else if (nomePlanta.length < 3 || nomePlanta.length > 50 ) {
+      Alert.alert("Erro", "O nome da planta deve ter entre 3 e 50 caracteres.");
     } else if (apelido && apelido.length < 3) {
       Alert.alert("Erro", "O apelido da planta deve ter pelo menos 3 caracteres se for preenchido.");
     } else if (isNaN(quantidadePlantada) || quantidadePlantada <= 0) {

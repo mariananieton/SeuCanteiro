@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, A
 import Menu from "../menu/Menu";
 
 const TelaAtualizaAlimento = ({ route, navigation }) => {
-  const { nomePlanta } = route.params;
+  const { nomePlanta, idPlanta, fetchPlantas } = route.params;
 
   const [nomeCientifico, setNomeCientifico] = useState("");
   const [regacao, setRegacao] = useState("");
@@ -15,8 +15,8 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
   const handleAtualizar = () => {
     if (!nomePlanta || !quantidadePlantada || !dataPlantio || !regacao) {
       Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
-    } else if (nomePlanta.length < 3) {
-      Alert.alert("Erro", "O nome da planta deve ter pelo menos 3 caracteres.");
+    } else if (nomePlanta.length < 3 || nomePlanta.length > 50 ) {
+      Alert.alert("Erro", "O nome da planta deve ter entre 3 e 50 caracteres.");
     } else if (apelido && apelido.length < 3) {
       Alert.alert("Erro", "O apelido da planta deve ter pelo menos 3 caracteres se for preenchido.");
     } else if (isNaN(quantidadePlantada) || quantidadePlantada <= 0) {
@@ -38,8 +38,8 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
         dataPlantio,
         dataColheita
       }
-      fetch('http://IP:8080/api/v1/planta/1', {
-      method: 'POST',
+      fetch(`http://IP:8080/api/v1/planta/${idPlanta}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -48,7 +48,8 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
     .then(response => response.json())
     .then(responseJson => {
       console.log(responseJson);
-      navigation.navigate("TelaCadastroSementes");
+      fetchPlantas(); 
+      navigation.navigate("Canteiro");
     })
     .catch(error => {
       console.error(error);
@@ -60,6 +61,25 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
     return /^\d{4}-\d{2}-\d{2}$/.test(data);
   };
 
+  const handleExcluir = async () => {
+    try {
+      await fetch(`http://IP:8080/api/v1/planta/${idPlanta}`, {
+        method: "DELETE",
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          console.log(responseJson);
+          fetchPlantas();
+          navigation.goBack();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../telaCadastroAlimento/img/superior.png')} style={styles.backgroundImage}>
@@ -113,6 +133,9 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.button} onPress={handleAtualizar}>
                 <Text style={styles.buttonText}>Atualizar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={handleExcluir}>
+                <Text style={styles.buttonText}>Excluir</Text>
               </TouchableOpacity>
             </View>
           </View>
