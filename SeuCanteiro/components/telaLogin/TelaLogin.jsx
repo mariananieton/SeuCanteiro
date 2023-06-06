@@ -1,7 +1,40 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput} from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const TelaLogin = ({ navigation}) => {
+const TelaLogin = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const handleLogin = async () => { 
+    fetch('http://IP:8080/api/v1/login', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        senha,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Falha ao fazer login");
+        }
+        return response.json();
+      })
+      .then(async (data) => { 
+        const { token, type, prefix } = data;
+        const bearerToken = prefix + token;
+        await AsyncStorage.setItem('token', bearerToken); 
+        navigation.navigate('Home');
+        console.log("Token de acesso:", bearerToken);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../telaLogin/img/login_cadastro.png')} style={styles.backgroundImage}>
@@ -12,13 +45,24 @@ const TelaLogin = ({ navigation}) => {
               <Text style={styles.textInput}>Seu e-mail</Text>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="exemplo@exemplo.com.br" />
+              <TextInput
+                style={styles.input}
+                placeholder="exemplo@exemplo.com.br"
+                value={email}
+                onChangeText={setEmail}
+              />
             </View>
             <View style={styles.label}>
               <Text style={styles.textInput}>Sua senha</Text>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="*************" />
+              <TextInput
+                style={styles.input}
+                placeholder="*************"
+                value={senha}
+                onChangeText={setSenha}
+                secureTextEntry
+              />
             </View>
             <View style={styles.forgotPasswordContainer}>
               <TouchableOpacity style={styles.forgotPasswordLink}>
@@ -26,7 +70,7 @@ const TelaLogin = ({ navigation}) => {
               </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+              <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Entrar</Text>
               </TouchableOpacity>
             </View>
@@ -69,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textInput: {
-    color:'#6C6B6B',
+    color: '#6C6B6B',
   },
   inputContainer: {
     width: '100%',
@@ -90,8 +134,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    width:170,
-    height:35,
+    width: 170,
+    height: 35,
     backgroundColor: '#A2FF82',
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -111,8 +155,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
   },
-  label:{
-    marginLeft:60,
+  label: {
+    marginLeft: 60,
   },
 });
 

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Alert } from "react-native";
 import Menu from "../menu/Menu";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from 'jwt-decode';
+
 
 const TelaAtualizaAlimento = ({ route, navigation }) => {
   const { nomePlanta, idPlanta, fetchPlantas } = route.params;
@@ -12,10 +15,34 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
   const [dataPlantio, setDataPlantio] = useState("");
   const [dataColheita, setDataColheita] = useState("");
 
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const storedToken = await AsyncStorage.getItem('token');
+      setToken(storedToken || '');
+    };
+  
+    fetchToken();
+  }, []);
+
+  const decodeToken = () => {
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+      } catch (error) {
+        console.error('Erro ao decodificar o token:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    decodeToken();
+  }, [token]);
+
   const handleAtualizar = () => {
-    if (!nomePlanta || !quantidadePlantada || !dataPlantio || !regacao) {
-      Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
-    } else if (nomePlanta.length < 3 || nomePlanta.length > 50 ) {
+    if (nomePlanta.length < 3 || nomePlanta.length > 50 ) {
       Alert.alert("Erro", "O nome da planta deve ter entre 3 e 50 caracteres.");
     } else if (apelido && apelido.length < 3) {
       Alert.alert("Erro", "O apelido da planta deve ter pelo menos 3 caracteres se for preenchido.");
@@ -42,6 +69,7 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `${token}`,
       },
       body: JSON.stringify({ planta, plantio }),
     })
@@ -65,20 +93,18 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
     try {
       await fetch(`http://IP:8080/api/v1/planta/${idPlanta}`, {
         method: "DELETE",
-      })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          console.log(responseJson);
-          fetchPlantas();
-          navigation.goBack();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`,
+        },
+      });
+      fetchPlantas();
+      navigation.navigate("Canteiro");
     } catch (error) {
       console.error(error);
     }
   };
+  
   
   return (
     <View style={styles.container}>
@@ -95,7 +121,7 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
               <TextInput style={styles.input} value={nomePlanta} editable={false} />
             </View>
             <View style={styles.label}>
-              <Text style={styles.textInput}>Atualizar nome científico (Opcional)</Text>
+              <Text style={styles.textInput}>Atualizar nome científico (Opcional): {}</Text>
             </View>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={nomeCientifico} onChangeText={setNomeCientifico} placeholder="Digite o nome científico da planta" />

@@ -1,45 +1,116 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Alert } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from 'jwt-decode';
 
 const TelaAtualizaCadastro = ({ navigation }) => {
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [token, setToken] = useState("");
+  const [userId, setUserId] = useState('');
 
-  const handleAtualizar = () => {
-    if (!nome || !cpf || !dataNascimento || !telefone) {
-      console.log("Por favor, preencha todos os campos.");
-      Alert.alert("Erro", "Por favor, preencha todos os campos.");
-    } else if (nome.length < 3 || nome.length > 50 ) {
-      console.log("Erro: O nome precisa ter entre 3 e 50 caracteres.");
-      Alert.alert("Erro", "O nome precisa ter entre 3 e 50 caracteres.");
-    } else if (!validarDataNascimento(dataNascimento)) {
-      console.log("Erro: Data de nascimento inválida. Utilize o formato yyyy-MM-dd.");
-      Alert.alert("Erro", "Data de nascimento inválida. Utilize o formato yyyy-MM-dd.");
-    } else if (!validarCPF(cpf)) {
-      console.log("Erro: CPF inválido. Utilize o formato xxxxxxxxx-xx.");
-      Alert.alert("Erro", "CPF inválido. Utilize o formato xxxxxxxxx-xx.");
-    } else if (!validarTelefone(telefone)) {
-      console.log("Erro: Telefone inválido. Deve ter 9 dígitos.");
-      Alert.alert("Erro", "Telefone inválido. Deve ter 9 dígitos.");
-    } else {
-        navigation.navigate('Perfil');
+  useEffect(() => {
+    const fetchToken = async () => {
+      const storedToken = await AsyncStorage.getItem('token');
+      setToken(storedToken || '');
+      decodeToken(); 
+    };
+  
+    fetchToken();
+  }, []);
+
+  const decodeToken = () => {
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        const userId = decodedToken.id;
+        setUserId(userId); 
+      } catch (error) {
+        console.error('Erro ao decodificar o token:', error);
+      }
     }
   };
-  
+
+  useEffect(() => {
+    decodeToken();
+  }, [token]);
+
   const validarDataNascimento = (data) => {
     return /^\d{4}-\d{2}-\d{2}$/.test(data);
   };
-  
+
   const validarCPF = (cpf) => {
     return /^\d{9}-\d{2}$/.test(cpf);
   };
-  
+
   const validarTelefone = (telefone) => {
     return /^\d{9}$/.test(telefone);
   };
+
+  const handleAtualizar = () => {
+    if (!nome || !cpf || !dataNascimento || !telefone) {
+      Alert.alert("Erro", "Por favor, preencha todos os campos.");
+    } else if (nome.length < 3 || nome.length > 50) {
+      Alert.alert("Erro", "O nome precisa ter entre 3 e 50 caracteres.");
+    } else if (!validarDataNascimento(dataNascimento)) {
+      Alert.alert("Erro", "Data de nascimento inválida. Utilize o formato yyyy-MM-dd.");
+    } else if (!validarCPF(cpf)) {
+      Alert.alert("Erro", "CPF inválido. Utilize o formato xxxxxxxxx-xx.");
+    } else if (!validarTelefone(telefone)) {
+      Alert.alert("Erro", "Telefone inválido. Deve ter 9 dígitos.");
+    } else {
+      const usuario = {
+        nome,
+        cpf,
+        dataNascimento,
+        telefone,
+      };
   
+      fetch(`http://IP:8080/api/v1/usuario/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`,
+        },
+        body: JSON.stringify(usuario),
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          console.log(responseJson);
+          navigation.navigate('Perfil');
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  };
+
+  const handleExcluir = async () => {
+    try {
+      await fetch(`http://IP:8080/api/v1/usuario/${userId}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`,
+        },
+      });
+      logout();
+      navigation.navigate("TelaInicial");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    }
+  };
   
   return (
     <View style={styles.container}>
@@ -96,6 +167,9 @@ const TelaAtualizaCadastro = ({ navigation }) => {
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.button} onPress={handleAtualizar}>
                 <Text style={styles.buttonText}>Atualizar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={handleExcluir}>
+                <Text style={styles.buttonText}>Excluir Conta</Text>
               </TouchableOpacity>
             </View>
           </View>

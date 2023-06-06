@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Alert} from "react-native";
 import Menu from "../menu/Menu";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from 'jwt-decode';
 
 const TelaCadastroAlimento = ({ route, navigation }) => {
   const { nomePlanta } = route.params;
@@ -11,6 +13,36 @@ const TelaCadastroAlimento = ({ route, navigation }) => {
   const [quantidadePlantada, setQuantidadePlantada] = useState("");
   const [dataPlantio, setDataPlantio] = useState("");
   const [dataColheita, setDataColheita] = useState("");
+
+  const [token, setToken] = useState('');
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const storedToken = await AsyncStorage.getItem('token');
+      setToken(storedToken || '');
+    };
+  
+    fetchToken();
+  }, []);
+
+  const decodeToken = () => {
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        const userId = decodedToken.id;
+        setUserId(userId); 
+      } catch (error) {
+        console.error('Erro ao decodificar o token:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    decodeToken();
+  }, [token]);
+  
 
   const handleSalvar = () => {
     if (!nomePlanta || !quantidadePlantada || !dataPlantio || !regacao) {
@@ -38,10 +70,11 @@ const TelaCadastroAlimento = ({ route, navigation }) => {
         dataPlantio,
         dataColheita
       }
-      fetch('http://IP:8080/api/v1/planta/1', {
+      fetch(`http://IP:8080/api/v1/planta/${userId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `${token}`,
       },
       body: JSON.stringify({ planta, plantio }),
     })

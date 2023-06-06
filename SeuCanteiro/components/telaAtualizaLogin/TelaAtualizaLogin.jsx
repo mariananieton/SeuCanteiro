@@ -1,10 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Alert } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from 'jwt-decode';
 
 const TelaAtualizaLogin = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [repetirSenha, setRepetirSenha] = useState("")
+  const [token, setToken] = useState("");
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const storedToken = await AsyncStorage.getItem('token');
+      setToken(storedToken || '');
+      decodeToken(); 
+    };
+  
+    fetchToken();
+  }, []);
+
+  const decodeToken = () => {
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        const userId = decodedToken.id;
+        setUserId(userId); 
+      } catch (error) {
+        console.error('Erro ao decodificar o token:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    decodeToken();
+  }, [token]);
 
   const handleAtualizar = () => {
     if (!email || !senha || !repetirSenha) {
@@ -20,14 +51,43 @@ const TelaAtualizaLogin = ({ navigation }) => {
       console.log("Erro: As senhas digitadas não coincidem.");
       Alert.alert("Erro", "As senhas digitadas não coincidem.");
     } else {
-        navigation.navigate('Perfil');
+      const login = {
+        email,
+        senha,
+      };
+
+      fetch(`http://IP:8080/api/v1/login/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`,
+        },
+        body: login
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          console.log(responseJson);
+          logout();
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
-  }; 
+  };
+
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+      navigation.navigate('TelaLogin');
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    }
+  };
   
   const validarEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@.]+$/.test(email);
   };
-  
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../telaCadastro/img/login_cadastro.png')} style={styles.backgroundImage}>

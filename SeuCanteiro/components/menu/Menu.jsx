@@ -16,6 +16,10 @@ const Menu = ({navigation}) => {
         <Text style={styles.texto}>CHAT</Text>
         <Image source={require('../menu/img/balao.png')} style={styles.image} />
       </TouchableOpacity>
+      <TouchableOpacity style={styles.touchableOpacity} onPress={() => navigation.navigate('Perfil')}>
+        <Text style={styles.texto}>PERFIL</Text>
+        <Image source={require('../menu/img/perfil.png')} style={styles.image} />
+      </TouchableOpacity>
       <TouchableOpacity style={styles.touchableOpacity} onPress={() => navigation.navigate('Canteiro')}>
         <Text style={styles.texto}>CANTEIRO</Text>
         <Image source={require('../menu/img/broto.png')} style={styles.image} />
@@ -40,6 +44,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     textAlign: 'center',
     marginBottom: 10,
+    marginRight: 15,
   },
   touchableOpacity: {
     alignItems: 'center',
@@ -48,6 +53,7 @@ const styles = StyleSheet.create({
   image: {
     width: 48,
     height: 48,
+    marginRight: 15,
   },
 });
 
