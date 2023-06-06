@@ -81,6 +81,7 @@ const TelaLogin = ({ navigation }) => {
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
