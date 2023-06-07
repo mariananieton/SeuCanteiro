@@ -55,14 +55,13 @@ const TelaAtualizaLogin = ({ navigation }) => {
         email,
         senha,
       };
-
       fetch(`http://IP:8080/api/v1/login/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${token}`,
         },
-        body: login
+        body: JSON.stringify(login)
       })
         .then(response => response.json())
         .then(responseJson => {
