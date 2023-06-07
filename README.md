@@ -13,6 +13,12 @@ Através dessas funcionalidades, o aplicativo Seu Canteiro permite que os usuár
 
 --------------------------
 
+## GRUPO TILLS
+RM93042 - FILIPE SANTOS DA SILVA
+RM94467 - FRANKLIN PEREIRA DO NASCIMENTO
+RM92920 - JOSE GABRIEL DA SILVA COELHO
+RM94141 - MARIANA NIETON BORGES
+
 ## Orientações
     - Nos endpoints deve-se colocar o IP local caso for emular pelo Android
     - Somente o Cadastro de Usuário e Login estão disponíveis sem autenticação, portanto para ter acesso as outras requisições e telas crie um usuário e faça login
@@ -21,7 +27,7 @@ Através dessas funcionalidades, o aplicativo Seu Canteiro permite que os usuár
 
 
 - Link dos vídeos :
-    - Pitch de negócio [aqui]
+    - Pitch de negócio (https://www.youtube.com/watch?v=4MUh_Nyr0-0)
     - Funcionamento do App (Front-End + Back-End + Banco de Dados) (https://www.youtube.com/watch?v=OOMFQD0TJKg)
     - Funcionamento do Back-End na VM (DevOPS) (https://youtu.be/vPYzvcIRrBU)
     
