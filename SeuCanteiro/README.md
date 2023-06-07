@@ -30,6 +30,7 @@ RM94141 - MARIANA NIETON BORGES
     - Pitch de negócio (https://www.youtube.com/watch?v=4MUh_Nyr0-0)
     - Funcionamento do App (Front-End + Back-End + Banco de Dados) (https://www.youtube.com/watch?v=OOMFQD0TJKg)
     - Funcionamento do Back-End na VM (DevOPS) (https://youtu.be/vPYzvcIRrBU)
+    - Assistente Virtual (IA) criado em Python (https://www.youtube.com/watch?v=IKCVdENJJ3A)
     
 
 ### ENDPOINTS
