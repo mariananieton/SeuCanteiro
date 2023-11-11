@@ -69,7 +69,7 @@ const TelaAtualizaCadastro = ({ navigation }) => {
         telefone,
       };
   
-      fetch(`http://192.168.0.160:8080/api/v1/usuario/${userId}`, {
+      fetch(`http://IP:8080/api/v1/usuario/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const TelaAtualizaCadastro = ({ navigation }) => {
 
   const handleExcluir = async () => {
     try {
-      await fetch(`http://192.168.0.160:8080/api/v1/usuario/${userId}`, {
+      await fetch(`http://IP:8080/api/v1/usuario/${userId}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',

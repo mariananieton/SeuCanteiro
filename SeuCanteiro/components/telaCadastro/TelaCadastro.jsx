@@ -49,7 +49,7 @@ const TelaCadastro = ({ navigation }) => {
         senha,
       };
 
-    fetch('http://192.168.0.160:8080/api/v1/usuario', {
+    fetch('http://IP:8080/api/v1/usuario', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

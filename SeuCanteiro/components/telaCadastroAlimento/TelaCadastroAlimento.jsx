@@ -70,7 +70,7 @@ const TelaCadastroAlimento = ({ route, navigation }) => {
         dataPlantio,
         dataColheita
       }
-      fetch(`http://192.168.0.160:8080/api/v1/planta/${userId}`, {
+      fetch(`http://IP:8080/api/v1/planta/${userId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

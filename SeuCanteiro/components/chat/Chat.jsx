@@ -10,7 +10,7 @@ const Chat = ({ navigation }) => {
     const sendMessage = async () => {
         try {
             if (message.trim() !== "") {
-                const response = await fetch("http://192.168.0.160:8080/api/v1/chat", {
+                const response = await fetch("http://IP:8080/api/v1/chat", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const Chat = ({ navigation }) => {
                 const respostaDoServidor = await response.text();
                 setResposta(respostaDoServidor);
 
-                // Atualizar o estado local com a nova pergunta e remover a anterior
+              
                 setMessages([{ text: message }]);
                 setMessage("");
             }
@@ -38,7 +38,7 @@ const Chat = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {/* Seu código existente aqui */}
+       
             <View style={styles.chatContainer}>
                 <View style={styles.messagesContainer}>
                     {messages.map((msg, index) => (
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     resposta: {
         fontSize: 16,
         marginBottom: 5,
-        color: "#079204", // Altere a cor conforme necessário
+        color: "#079204", 
     },
     inputContainer: {
         flexDirection: "row",

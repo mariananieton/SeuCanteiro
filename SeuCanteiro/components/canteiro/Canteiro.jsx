@@ -39,7 +39,7 @@ const Canteiro = ({ navigation }) => {
 
   const fetchPlantas = async () => {
     try {
-      const response = await fetch(`http://192.168.0.160:8080/api/v1/canteiro/${userId}`, {
+      const response = await fetch(`http://IP:8080/api/v1/canteiro/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
