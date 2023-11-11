@@ -14,6 +14,7 @@ import TelaAtualizaAlimento from "./components/telaAtualizaAlimento/TelaAtualiza
 import Perfil from "./components/perfil/Perfil";
 import TelaAtualizaCadastro from "./components/telaAtualizaCadastro/TelaAtualizaCadastro"
 import TelaAtualizaLogin from "./components/telaAtualizaLogin/TelaAtualizaLogin"
+import Chat from "./components/chat/Chat";
 
 const Stack = createNativeStackNavigator();
 
@@ -81,6 +82,12 @@ const App = () => {
           component={TelaAtualizaLogin}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Chat"
+          component={Chat}
+          options={{ headerShown: false }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

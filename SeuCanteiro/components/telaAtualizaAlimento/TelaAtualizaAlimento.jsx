@@ -65,7 +65,7 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
         dataPlantio,
         dataColheita
       }
-      fetch(`http://IP:8080/api/v1/planta/${idPlanta}`, {
+      fetch(`http://192.168.0.160:8080/api/v1/planta/${idPlanta}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const TelaAtualizaAlimento = ({ route, navigation }) => {
 
   const handleExcluir = async () => {
     try {
-      await fetch(`http://IP:8080/api/v1/planta/${idPlanta}`, {
+      await fetch(`http://192.168.0.160:8080/api/v1/planta/${idPlanta}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',

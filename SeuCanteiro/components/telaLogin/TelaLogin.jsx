@@ -7,7 +7,7 @@ const TelaLogin = ({ navigation }) => {
   const [senha, setSenha] = useState("");
 
   const handleLogin = async () => { 
-    fetch('http://IP:8080/api/v1/login', {
+    fetch('http://192.168.0.160:8080/api/v1/login', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
